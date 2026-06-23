@@ -3283,15 +3283,20 @@ class Worksheet:
 
            ``paste_type`` values are explained here: `Paste Types`_
 
+           See `CopyPasteRequest`_ for how the destination range is filled.
+
            .. _Paste Types: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/request#pastetype
 
+           .. _CopyPasteRequest: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/request#copypasterequest
+
         :param str source: The A1 notation of the source range to copy
-        :param str dest: The A1 notation of the destination where to paste the data
-            Can be the A1 notation of the top left corner where the range must be paste
-            ex: G16, or a complete range notation ex: G16:I20.
-            The dimensions of the destination range is not checked and has no effect,
-            if the destination range does not match the source range dimension, the entire
-            source range is copies anyway.
+        :param str dest: The A1 notation of the destination where to paste the data.
+            Can be the A1 notation of the top left corner where the range must be
+            pasted ex: ``G16``, or a complete range notation ex: ``G16:I20``.
+            The destination range does not need to match the source dimensions.
+            If ``dest`` spans a multiple of the source's height or width, the source
+            is repeated to fill the destination range. If ``dest`` is smaller than the
+            source, the entire source is copied anyway, beyond the end of ``dest``.
         :param paste_type: the paste type to apply. Many paste type are available from
             the Sheet API, see above note for detailed values for all values and their effects.
             Defaults to ``PasteType.normal``
